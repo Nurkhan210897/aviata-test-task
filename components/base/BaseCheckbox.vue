@@ -1,13 +1,11 @@
 <template>
-  <input type="checkbox">
+    <input type="checkbox"/>
 </template>
 
 <script>
 export default {
 
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

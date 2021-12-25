@@ -1,6 +1,7 @@
 <template>
   <div>
-    <CommonFlightsCard v-for="(flight, index) in flights" :key="index" :flight="flight"/>
+    <CommonFlightCard v-for="(flight, index) in filteredFlights" :key="index" :flight="flight"/>
+    <!-- {{selectedAirlines}} -->
   </div>
 </template>
 
@@ -10,8 +11,17 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters({
-      flights: "flights/getFlights"
+      flights: "flights/getFlights",
+      selectedAirlines: "flights/getSelectedAirlines"
     }),
+
+    filteredFlights(){
+      if(this.selectedAirlines.length){
+        return this.selectedAirlines
+      }else{
+        return this.flights
+      }
+    }
   },
 };
 </script>

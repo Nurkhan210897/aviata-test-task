@@ -6,15 +6,15 @@ export const state = () => ({
 })
 
 export const mutations = {
-    setData(state, data) {
-        state.airlines = data.airlines
+    setAirlines(state, data) {
+        state.airlines = data
     }
 }
 
 export const actions = {
     fetchAirlines({ state, commit }) {
-        commit('setData', data)
-        commit('flights/setFlights', data)
+        commit('setAirlines', data.airlines)
+        commit('flights/setFlights', data.flights)
     }
 }
 

@@ -1,8 +1,7 @@
 <template>
   <div class="row">
     <div class="md-4">
-      <CommonAirlines title="Авиакомпании" bg="red" />
-      <CommonAirlines title="Авиакомпании2" bg="green" />
+      <CommonAirlines title="Авиакомпании" />
     </div>
     <div class="md-8">
       <CommonFlights />

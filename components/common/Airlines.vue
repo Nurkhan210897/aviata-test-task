@@ -3,7 +3,7 @@
     <div class="list-title">
       <p>{{title}}</p>
     </div>
-    <BaseAirlineItem v-for="airline in airlines" :key="airline" :airline="airline"/>
+    <BaseAirlineItem :airlines="airlines" />
   </div>
 </template>
 
