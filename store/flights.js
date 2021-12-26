@@ -6,6 +6,7 @@ export const state = () => ({
 export const mutations = {
     setFlights(state, results) {
         const data = results.map(element => {
+            console.log(element.itineraries[0][0]);
             return element.itineraries[0][0];
         });
         state.flights = data

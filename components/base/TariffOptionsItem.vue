@@ -1,15 +1,15 @@
 <template>
   <div>
-    <li class="list-item" v-for="airline in airlines" :key="airline">
+    <li class="list-item" v-for="(tariff, index) in tariffOptions" :key="index">
       <input
-        :id="airline"
+        :id="tariff.name"
         type="checkbox"
-        :value="airline"
+        :value="tariff.type"
         v-model="selected"
-        @change="filterFlights(airline)"
+        @change="filterFlights(tariff.type)"
       />
-      <label :for="airline" class="list-item_label text --medium">{{
-        airline
+      <label :for="tariff.name" class="list-item_label text --medium">{{
+        tariff.name
       }}</label>
     </li>
   </div>
@@ -18,17 +18,18 @@
 <script>
 export default {
   props: {
-    airlines: {
-      type: Object,
-      default: {},
+    tariffOptions: {
+      type: Array,
+      default: [],
     },
   },
   data: () => ({
     selected: [],
   }),
   methods: {
-    filterFlights() {
-      this.$store.commit("flights/filterFlights", this.selected);
+    filterFlights(e) {
+      console.log(e);
+      // this.$store.commit("flights/filterFlights", this.selected);
     },
   },
 };

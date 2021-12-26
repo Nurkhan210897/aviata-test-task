@@ -1,10 +1,13 @@
 <template>
-  <div class="row">
-    <div class="md-4">
-      <CommonAirlines title="Авиакомпании" />
-    </div>
-    <div class="md-8">
-      <CommonFlights />
+  <div class="container">
+    <div class="row">
+      <div class="md-4">
+        <CommonTariffOptions title="Опции тарифа" />
+        <CommonAirlines title="Авиакомпании" />
+      </div>
+      <div class="md-8">
+        <CommonFlights />
+      </div>
     </div>
   </div>
 </template>

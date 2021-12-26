@@ -3,7 +3,7 @@
     <div class="list-title">
       <p>{{ title }}</p>
     </div>
-    <BaseAirlineItem :airlines="airlines" v-if="airlines" />
+    <BaseTariffOptionsItem :tariffOptions="tariffOptions" v-if="tariffOptions" />
   </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["airlines"]),
     ...mapGetters(["tariffOptions"]),
   },
 };

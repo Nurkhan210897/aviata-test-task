@@ -1,0 +1,45 @@
+@font-face {
+    font-family: openSans;
+    src: url("@/assets/fonts/open-sans.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: openSans;
+}
+
+.text {
+    &.--small {
+        font-size: 10px;
+        line-height: 12px;
+    }
+    &.--medium {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    &.--big {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 33px;
+    }
+    &.--orange {
+        color: $orange;
+    }
+    &.--silver {
+        color: $silver;
+    }
+    &.--dark {
+        color: $dark;
+    }
+    &.--blue {
+        color: $blue;
+    }
+    &.--underline {
+        text-decoration: none;
+        border-bottom: 1px dashed $blue;
+    }
+}
