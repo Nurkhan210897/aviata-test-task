@@ -1,8 +1,6 @@
 <template>
   <div class="flight-card">
-    <!-- <pre>{{flight}}</pre> -->
-    <p>{{depTime}}</p>
-    <!-- <div class="flight-card_row">
+    <div class="flight-card_row">
       <div class="flight-card_body">
         <div class="flight-card_row">
           <div class="flight-card_logo">
@@ -14,25 +12,37 @@
           </div>
           <div class="flight-card_route">
             <div class="flight-card_route_time">
-              <p class="text --dark --medium">25 ноя, вс</p>
-              <p class="text --dark --big">23:25</p>
+              <p class="text --dark --medium">
+                {{ flight.dep_date | formatDate("dayAndMounth") }}
+              </p>
+              <p class="text --dark --big">
+                {{ flight.dep_date | formatDate("time") }}
+              </p>
             </div>
             <div class="flight-card_route_flight">
               <div class="flight-card_route_flight_info">
-                <p class="text --silver --small">ALA</p>
-                <p class="text --dark --medium">4 ч 20 м</p>
-                <p class="text --silver --small">TSE</p>
+                <p class="text --silver --small">{{ flight.dest_code }}</p>
+                <p class="text --dark --medium">
+                  {{ flightTime(flight.traveltime) }}
+                </p>
+                <p class="text --silver --small">{{ flight.arr_code }}</p>
               </div>
               <div class="line">
                 <span class="circle"></span>
                 <span class="circle"></span>
                 <span class="circle"></span>
               </div>
-              <p class="text --orange --medium">через Шымкент, 1 ч 50 м</p>
+              <p class="text --orange --medium">
+                через {{ flight.destCity }} {{ flightTime(flight.layovers) }}
+              </p>
             </div>
             <div class="flight-card_route_time">
-              <p class="text --dark --medium">25 ноя, вс</p>
-              <p class="text --dark --big">23:25</p>
+              <p class="text --dark --medium">
+                {{ flight.arr_date | formatDate("dayAndMounth") }}
+              </p>
+              <p class="text --dark --big">
+                {{ flight.arr_date | formatDate("time") }}
+              </p>
             </div>
           </div>
         </div>
@@ -49,17 +59,18 @@
         </div>
       </div>
       <div class="flight-card-choose_flight">
-        <p class="text --big">590 240 ₸</p>
+        <p class="text --big">{{ flight.price.amount }} ₸</p>
         <button type="button" class="btn btn-green">Выбрать</button>
         <p class="text --silver --medium">Цена за всех пассажиров</p>
         <div class="flight-card-choose_flight_details">
-          <p class="text --dark --medium">Нет багажа</p>
+          <p class="text --dark --medium" v-if="flight.baggage.value">{{ flight.baggage.value }} кг</p>
+          <p class="text --dark --medium --text-center" v-else>Нет багажа</p>
           <button class="btn btn-light_blue text --medium --blue">
             + Добавить багаж
           </button>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -72,12 +83,20 @@ export default {
     },
   },
 
-  computed:{
-    depTime(){
-      let date = new Date(this.flight.dep_date)
-      return date
-    }
-  }
+  computed: {},
+
+  methods: {
+    flightTime(time) {
+      let traveltime = time;
+      let hours = Math.floor(traveltime / 3600);
+      let minutes = (traveltime % 3600) / 60;
+      let receivedЕime = hours ? hours + " ч " : "";
+      if (minutes) {
+        receivedЕime += minutes + " м";
+      }
+      return receivedЕime;
+    },
+  },
 };
 </script>
 
@@ -157,10 +176,10 @@ export default {
       display: flex;
       align-items: center;
       margin-right: 25px;
-      img{
+      img {
         margin-right: 8px;
       }
-      &:last-child{
+      &:last-child {
         margin-left: 20px;
       }
     }
@@ -171,17 +190,17 @@ export default {
     background-color: #f5f5f5;
     padding: 12px 20px 15px;
     text-align: center;
-    p{
+    p {
       margin-bottom: 12px;
     }
-    .btn-green{
+    .btn-green {
       margin-bottom: 8px;
     }
     &_details {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      p{
+      p {
         margin-bottom: 0;
       }
     }

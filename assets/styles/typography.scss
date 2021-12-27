@@ -42,4 +42,7 @@ body {
         text-decoration: none;
         border-bottom: 1px dashed $blue;
     }
+    &.--text-center {
+        text-align: center;
+    }
 }
