@@ -14,13 +14,24 @@ export const mutations = {
 
     filterFlights(state, airline) {
         state.selectedAirlines = []
+        let filteredArr = state.selectedAirlines.length ? state.selectedAirlines : state.flights
+        console.log(filteredArr);
         airline.forEach(element => {
-            state.flights.filter((el) => {
-                if (el.carrier_name === element) {
-                    state.selectedAirlines.unshift(el)
+            filteredArr.filter((flight) => {
+                if (flight.carrier_name === element) {
+                    state.selectedAirlines.unshift(flight)
                 }
             })
         });
+    },
+
+    filterFlightsByRate(state, { type, value }) {
+        let filteredArr = state.selectedAirlines.length ? state.selectedAirlines : state.flights
+        filteredArr.filter((flight) => {
+            if (value === flight.stops && type === 'strainghtDirection') {
+                return flight
+            }
+        })
     }
 }
 

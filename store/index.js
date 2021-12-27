@@ -4,9 +4,9 @@ export const state = () => ({
     airlines: {},
     flights: [],
     tariffOptions: [
-        { name: 'Только прямые', type: 'strainghtDirection', value: 0 },
-        { name: 'Только с багажом', type: 'onlyWithLuggage', value: 1 },
-        { name: 'Только возвратные', type: 'returnableOnly', value: 0 },
+        { rate: 'Только прямые', type: 'strainghtDirection', value: 0 },
+        { rate: 'Только с багажом', type: 'onlyWithLuggage', value: 1 },
+        { rate: 'Только возвратные', type: 'returnableOnly', value: 2 },
     ],
 })
 

@@ -1,6 +1,8 @@
 <template>
   <div class="flight-card">
-    <div class="flight-card_row">
+    <!-- <pre>{{flight}}</pre> -->
+    <p>{{depTime}}</p>
+    <!-- <div class="flight-card_row">
       <div class="flight-card_body">
         <div class="flight-card_row">
           <div class="flight-card_logo">
@@ -57,7 +59,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -69,6 +71,13 @@ export default {
       default: {},
     },
   },
+
+  computed:{
+    depTime(){
+      let date = new Date(this.flight.dep_date)
+      return date
+    }
+  }
 };
 </script>
 

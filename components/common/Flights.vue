@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <pre>{{filteredFlights}}</pre> -->
     <CommonFlightCard v-for="(flight, index) in filteredFlights" :key="index" :flight="flight"/>
     <!-- {{selectedAirlines}} -->
   </div>

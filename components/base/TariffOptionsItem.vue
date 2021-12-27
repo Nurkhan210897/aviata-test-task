@@ -2,14 +2,14 @@
   <div>
     <li class="list-item" v-for="(tariff, index) in tariffOptions" :key="index">
       <input
-        :id="tariff.name"
+        :id="tariff.rate"
         type="checkbox"
-        :value="tariff.type"
-        v-model="selected"
-        @change="filterFlights(tariff.type)"
+        :value="tariff"
+        v-model="rates"
+        @change="filterFlightsByRate(tariff)"
       />
-      <label :for="tariff.name" class="list-item_label text --medium">{{
-        tariff.name
+      <label :for="tariff.rate" class="list-item_label text --medium">{{
+        tariff.rate
       }}</label>
     </li>
   </div>
@@ -24,12 +24,18 @@ export default {
     },
   },
   data: () => ({
-    selected: [],
+    rates: [],
+    selectedRate: null
   }),
   methods: {
-    filterFlights(e) {
-      console.log(e);
-      // this.$store.commit("flights/filterFlights", this.selected);
+    filterFlightsByRate(e) {
+      if(this.selectedRate == null){
+        this.selectedRate = e.value
+      }else{
+        this.selectedRate = null
+      }
+      console.log(this.selectedRate);
+      this.$store.commit("flights/filterFlightsByRate", { type: e.type, value: this.selectedRate});
     },
   },
 };
