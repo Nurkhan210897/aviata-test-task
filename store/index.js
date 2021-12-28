@@ -12,6 +12,7 @@ export const state = () => ({
 
 export const mutations = {
     setAirlines(state, data) {
+        data = { all: 'Все', ...data };
         state.airlines = data
     }
 }

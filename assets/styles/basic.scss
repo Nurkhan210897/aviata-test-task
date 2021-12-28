@@ -6,3 +6,17 @@
 body {
     background-color: $light-silver;
 }
+
+.row {
+    display: flex;
+}
+
+.md-4 {
+    width: 100%;
+    max-width: 240px;
+}
+
+.md-8 {
+    width: 100%;
+    max-width: 880px;
+}

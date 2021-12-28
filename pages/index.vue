@@ -2,8 +2,9 @@
   <div class="container">
     <div class="row">
       <div class="md-4">
-        <CommonTariffOptions title="Опции тарифа" />
-        <CommonAirlines title="Авиакомпании" />
+        <CommonTariffOptions />
+        <CommonAirlines />
+        <p class="clear">Сбросить все фильтры</p>
       </div>
       <div class="md-8">
         <CommonFlights />
@@ -14,6 +15,11 @@
 
 <script>
 export default {
+  methods: {
+    clearAllFilters() {
+      console.log("clearAllFilters");
+    },
+  },
   async mounted() {
     this.$store.dispatch("fetchAirlines");
   },
@@ -21,15 +27,10 @@ export default {
 </script>
 
 <style lang="scss">
-.row {
-  display: flex;
-}
-.md-4 {
-  width: 100%;
-  max-width: 240px;
-}
-.md-8 {
-  width: 100%;
-  max-width: 880px;
+.clear {
+  font-size: 12px;
+  line-height: 16px;
+  color: #7284e4;
+  cursor: pointer;
 }
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div>
-    <!-- <pre>{{filteredFlights}}</pre> -->
-    <CommonFlightCard v-for="(flight, index) in filteredFlights" :key="index" :flight="flight"/>
-    <!-- {{selectedAirlines}} -->
+    <transition-group name="slide" tag="div">
+      <CommonFlightCard
+        v-for="(flight, index) in filteredFlights"
+        :key="index"
+        :flight="flight"
+      />
+    </transition-group>
   </div>
 </template>
 
@@ -13,16 +17,16 @@ export default {
   computed: {
     ...mapGetters({
       flights: "flights/getFlights",
-      selectedAirlines: "flights/getSelectedAirlines"
+      selectedAirlines: "flights/getSelectedAirlines",
     }),
 
-    filteredFlights(){
-      if(this.selectedAirlines.length){
-        return this.selectedAirlines
-      }else{
-        return this.flights
+    filteredFlights() {
+      if (this.selectedAirlines.length) {
+        return this.selectedAirlines;
+      } else {
+        return this.flights;
       }
-    }
+    },
   },
 };
 </script>

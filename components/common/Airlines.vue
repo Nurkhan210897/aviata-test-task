@@ -1,14 +1,25 @@
 <template>
-  <div class="list">
-    <div class="list-title">
-      <p>{{ title }}</p>
-    </div>
-    <BaseAirlineItem :airlines="airlines" v-if="airlines" />
+  <div class="option-list">
+    <BaseOptionListHeader title="Авиакомпании" @clearFilter="clearFilter" />
+    <ul>
+      <li class="option-list-item" v-for="airline in airlines" :key="airline">
+        <input
+          :id="airline"
+          type="checkbox"
+          :value="airline"
+          v-model="selected"
+          @change="filterFlights(airline)"
+        />
+        <label :for="airline" class="list-item_label text --medium">{{
+          airline
+        }}</label>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   props: {
@@ -17,26 +28,27 @@ export default {
       default: "",
     },
   },
+
+  data: () => ({
+    selected: ["Все"],
+  }),
+
   computed: {
     ...mapGetters(["airlines"]),
-    ...mapGetters(["tariffOptions"]),
   },
+
+  methods: {
+    ...mapMutations({
+      filterOut: "flights/filterFlights",
+    }),
+    filterFlights() {
+      this.filterOut(this.selected);
+    },
+    clearFilter() {
+      this.selected = ["Все"];
+      this.filterOut(this.selected);
+    },
+  },
+
 };
 </script>
-
-<style lang="scss" scoped>
-.list {
-  padding: 12px 12px 16px;
-  background-color: #f5f5f5;
-  margin-right: 20px;
-  border-radius: 4px;
-  &-title {
-    margin-bottom: 26px;
-    p {
-      font-weight: bold;
-      font-size: 14px;
-      line-height: 20px;
-    }
-  }
-}
-</style>

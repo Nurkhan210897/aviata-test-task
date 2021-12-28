@@ -1,15 +1,16 @@
 export const state = () => ({
     flights: [],
-    selectedAirlines: []
+    selectedAirlines: [],
+    flightsByRate: []
 })
 
 export const mutations = {
     setFlights(state, results) {
-        console.log(results);
-        const flightsData = results.map((item) => {
+        const flightsData = results.map((item, index) => {
             if (item) {
                 let flightData = item.itineraries[0][0];
                 return {
+                    id: index,
                     refundable: flightData.refundable,
                     carrier_name: flightData.carrier_name,
                     carrier: flightData.carrier,
@@ -37,7 +38,6 @@ export const mutations = {
     filterFlights(state, airline) {
         state.selectedAirlines = []
         let filteredArr = state.selectedAirlines.length ? state.selectedAirlines : state.flights
-        console.log(filteredArr);
         airline.forEach(element => {
             filteredArr.filter((flight) => {
                 if (flight.carrier_name === element) {
@@ -47,13 +47,33 @@ export const mutations = {
         });
     },
 
-    filterFlightsByRate(state, { type, value }) {
+    filterFlightsByRate(state, rates) {
         let filteredArr = state.selectedAirlines.length ? state.selectedAirlines : state.flights
-        filteredArr.filter((flight) => {
-            if (value === flight.stops && type === 'strainghtDirection') {
-                return flight
+        let arr = []
+        rates.forEach(element => {
+            if (element === 'strainghtDirection') {
+                filteredArr.filter((flight) => {
+                    if (flight.stops === 0) {
+                        arr.unshift(flight)
+                    }
+                })
             }
-        })
+            if (element === 'onlyWithLuggage') {
+                filteredArr.filter((flight) => {
+                    if (flight.baggage.value > 0) {
+                        arr.unshift(flight)
+                    }
+                })
+            }
+            if (element === 'returnableOnly') {
+                filteredArr.filter((flight) => {
+                    if (flight.refundable) {
+                        arr.unshift(flight)
+                    }
+                })
+            }
+        });
+        state.selectedAirlines = arr
     }
 }
 
@@ -63,5 +83,6 @@ export const actions = {
 
 export const getters = {
     getFlights: state => state.flights,
-    getSelectedAirlines: state => state.selectedAirlines
+    getSelectedAirlines: state => state.selectedAirlines,
+    getFlightsByRate: state => state.flightsByRate
 }

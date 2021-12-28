@@ -1,41 +1,48 @@
 <template>
-  <div class="list">
-    <div class="list-title">
-      <p>{{ title }}</p>
-    </div>
-    <BaseTariffOptionsItem :tariffOptions="tariffOptions" v-if="tariffOptions" />
+  <div class="option-list">
+    <BaseOptionListHeader title="Авиакомпании" @clearFilter="clearFilter" />
+    <li
+      class="option-list-item"
+      v-for="(tariff, index) in tariffOptions"
+      :key="index"
+    >
+      <input
+        :id="tariff.rate"
+        type="checkbox"
+        :value="tariff.type"
+        v-model="rates"
+        @change="filterFlightsByRate(tariff)"
+      />
+      <label :for="tariff.rate" class="list-item_label text --medium">{{
+        tariff.rate
+      }}</label>
+    </li>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
-  props: {
-    title: {
-      type: String,
-      default: "",
-    },
-  },
+  data: () => ({
+    rates: [],
+  }),
+
   computed: {
     ...mapGetters(["tariffOptions"]),
   },
+
+  methods: {
+    ...mapMutations({
+      filterOut: "flights/filterFlightsByRate"
+    }),
+    filterFlightsByRate(e) {
+      this.filterOut(this.rates);
+    },
+    clearFilter() {
+      this.rates = [];
+      this.filterOut(this.rates);
+    },
+  },
 };
 </script>
-
-<style lang="scss" scoped>
-.list {
-  padding: 12px 12px 16px;
-  background-color: #f5f5f5;
-  margin-right: 20px;
-  border-radius: 4px;
-  &-title {
-    margin-bottom: 26px;
-    p {
-      font-weight: bold;
-      font-size: 14px;
-      line-height: 20px;
-    }
-  }
-}
-</style>
